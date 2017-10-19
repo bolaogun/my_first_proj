@@ -1,0 +1,95 @@
+[ec2-user@ip-172-31-9-209 my_first_proj]$ eb create
+Enter Environment Name
+(default is my-first-proj-dev): 
+Enter DNS CNAME prefix
+(default is my-first-proj-dev): 
+
+Select a load balancer type
+1) classic
+2) application
+3) network
+(default is 1): 1
+WARNING: Insufficient IAM privileges. Unable to determine if instance profile 'aws-elasticbeanstalk-ec2-role' exists, assuming that it exists.
+Creating application version archive "app-171019_074750".
+Uploading my_first_proj/app-171019_074750.zip to S3. This may take a while.
+Upload Complete.
+Environment details for: my-first-proj-dev
+  Application name: my_first_proj
+  Region: us-west-2
+  Deployed Version: app-171019_074750
+  Environment ID: e-mdgmj3gykh
+  Platform: arn:aws:elasticbeanstalk:us-west-2::platform/PHP 5.4 running on 64bit Amazon Linux/2.5.0
+  Tier: WebServer-Standard
+  CNAME: my-first-proj-dev.us-west-2.elasticbeanstalk.com
+  Updated: 2017-10-19 11:47:53.240000+00:00
+Printing Status:
+INFO: createEnvironment is starting.
+INFO: Using elasticbeanstalk-us-west-2-702840763793 as Amazon S3 storage bucket for environment data.
+INFO: Environment health has transitioned to Pending. Initialization in progress (running for 4 seconds). There are no instances.
+INFO: Created security group named: sg-2c3d5d51
+INFO: Created load balancer named: awseb-e-m-AWSEBLoa-1MCLTA51LHSYI
+INFO: Created security group named: awseb-e-mdgmj3gykh-stack-AWSEBSecurityGroup-QI8WUF5B4NAF
+INFO: Created Auto Scaling launch configuration named: awseb-e-mdgmj3gykh-stack-AWSEBAutoScalingLaunchConfiguration-1CYG8B66QD0ZE
+ -- Events -- (safe to Ctrl+C)
+
+[ec2-user@ip-172-31-9-209 my_first_proj]$ eb status
+Environment details for: my-first-proj-dev
+  Application name: my_first_proj
+  Region: us-west-2
+  Deployed Version: app-171019_074750
+  Environment ID: e-mdgmj3gykh
+  Platform: arn:aws:elasticbeanstalk:us-west-2::platform/PHP 5.4 running on 64bit Amazon Linux/2.5.0
+  Tier: WebServer-Standard
+  CNAME: my-first-proj-dev.us-west-2.elasticbeanstalk.com
+  Updated: 2017-10-19 11:51:13.647000+00:00
+  Status: Ready
+  Health: Green
+
+eb health:
+my-first-proj-dev                                           Ok                                           2017-10-19 08:25:40WebServer                                                                         PHP 5.4 running on 64bit Amazon Linux/2.5.0  total      ok    warning  degraded  severe    info   pending  unknown 
+    1        1        0        0        0        0        0        0    
+
+  instance-id           status     cause                                                                             health  
+    Overall             Ok                
+  i-0dbe0d6b6ae7ea911   Ok                
+   
+  instance-id           r/sec    %2xx   %3xx   %4xx   %5xx      p99      p90      p75     p50     p10              requests  
+    Overall             0.0         -      -      -      -         -        -       -       -       -
+  i-0dbe0d6b6ae7ea911   0.0         -      -      -      -         -        -       -       -       -
+   
+  instance-id           type       az   running     load 1  load 5      user%  nice%  system%  idle%   iowait%               
+  i-0dbe0d6b6ae7ea911   t2.micro   2c   37 mins        0.0     0.0        0.0    0.0      0.0   99.9       0.1
+   
+  instance-id           status     id   version             ago                                                 deployments  
+  i-0dbe0d6b6ae7ea911   Deployed   1    app-171019_074750   35 mins  
+   
+
+eb config: 
+ApplicationName: my_first_proj
+DateUpdated: 2017-10-19 11:47:51+00:00
+EnvironmentName: my-first-proj-dev
+PlatformArn: arn:aws:elasticbeanstalk:us-west-2::platform/PHP 5.4 running on 64bit
+  Amazon Linux/2.5.0
+settings:
+  AWSEBAutoScalingScaleDownPolicy.aws:autoscaling:trigger:
+    LowerBreachScaleIncrement: '-1'
+  AWSEBAutoScalingScaleUpPolicy.aws:autoscaling:trigger:
+    UpperBreachScaleIncrement: '1'
+  AWSEBCloudwatchAlarmHigh.aws:autoscaling:trigger:
+    UpperThreshold: '6000000'
+  AWSEBCloudwatchAlarmLow.aws:autoscaling:trigger:
+    BreachDuration: '5'
+    EvaluationPeriods: '1'
+    LowerThreshold: '2000000'
+    MeasureName: NetworkOut
+    Period: '5'
+    Statistic: Average
+    Unit: Bytes
+  AWSEBLoadBalancerSecurityGroup.aws:ec2:vpc:
+    VPCId: null
+  aws:autoscaling:asg:
+    Availability Zones: Any
+    Cooldown: '360'
+    Custom Availability Zones: ''
+    MaxSize: '4'
+                                                     [ Read
